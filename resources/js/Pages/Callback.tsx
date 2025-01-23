@@ -1,17 +1,15 @@
-import { PageProps } from '@/types';
+import { User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { Button, MantineProvider, Title } from '@mantine/core';
 
-export default function Welcome() {
+export default function Callback({ props }: { props: object}) {
   return (
     <>
-      <Head title="Welcome"/>
+      <Head title="Callback" />
       <MantineProvider>
         <Title> Legoom App</Title>
         <br />
-        <form method="GET" action="/redirect">
-          <Button type="submit">Sign in with Legoom ID</Button>
-        </form>
+        {JSON.stringify(props)}
       </MantineProvider>
     </>
   );

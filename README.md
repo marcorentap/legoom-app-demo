@@ -4,7 +4,7 @@ This demo uses Laravel+React+Typescript
 ```
 cp .env.example .env
 ```
-and point `LEGOOM_ID_URL` to the [Legoom ID server](https://github.com/marcorentap/legoom-id-demo).
+Set the `LEGOOM_ID_URL` to the [Legoom ID server URL](https://github.com/marcorentap/legoom-id-demo). Then, set `LEGOOM_CLIENT_ID` and `LEGOOM_CLIENT_SECRET` to the corresponding [client ID and secret](https://github.com/marcorentap/legoom-id-demo/blob/master/README.md) you generated.
 
 ## Execute
 Install dependencies and generate passport keys

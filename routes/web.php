@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/redirect', function () {
     $query = http_build_query([
-        'client_id' => '9e0991db-804d-4037-808a-ce451ac6d3e2',
+        'client_id' => env('LEGOOM_CLIENT_ID'),
         'redirect_uri' => url('/callback'),
         'response_type' => 'code',
         'scope' => 'write-personal-info read-membership-info',
@@ -28,8 +28,8 @@ Route::get('/callback', function (Request $request) {
     # Get access token
     $response = Http::asForm()->post(env('LEGOOM_ID_URL') . '/oauth/token', [
         'grant_type' => 'authorization_code',
-        'client_id' => '9e0991db-804d-4037-808a-ce451ac6d3e2',
-        'client_secret' => 'WZcLirYopHkQsAdGTaalkad62YGfZNfx0YWShfKZ',
+        'client_id' => env('LEGOOM_CLIENT_ID'),
+        'client_secret' => env('LEGOOM_CLIENT_SECRET'),
         'redirect_uri' => url('/callback'),
         'code' => $request->code,
     ]);

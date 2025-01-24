@@ -21,12 +21,12 @@ Route::get('/redirect', function () {
         'prompt' => "consent"
     ]);
 
-    return redirect('http://box-wsl/oauth/authorize?' . $query);
+    return redirect(env('LEGOOM_ID_URL') . '/oauth/authorize?' . $query);
 });
 
 Route::get('/callback', function (Request $request) {
     # Get access token
-    $response = Http::asForm()->post('http://box-wsl/oauth/token', [
+    $response = Http::asForm()->post(env('LEGOOM_ID_URL') . '/oauth/token', [
         'grant_type' => 'authorization_code',
         'client_id' => '9e0991db-804d-4037-808a-ce451ac6d3e2',
         'client_secret' => 'WZcLirYopHkQsAdGTaalkad62YGfZNfx0YWShfKZ',
@@ -41,7 +41,7 @@ Route::get('/callback', function (Request $request) {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get('http://box-wsl/api/user');
+        ])->get(env('LEGOOM_ID_URL') . '/api/user');
 
 
         $username = $response->json("name");

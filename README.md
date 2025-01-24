@@ -19,8 +19,6 @@ Setup sail's docker environment and choose a database service.
 php artisan sail:install
 ```
 
-Then replace `vendor/laravel/passport/src/Http/Controllers/AuthorizationControl` with [this AuthorizationController](https://gist.github.com/marcorentap/740046418fa270146ab0302b7067843b) (quick hack).
-
 If you are also running Legoom ID locally, you might want to change the published ports in `docker-compose.yml` to avoid clashes. Then execute
 ```
 ./vendor/bin/sail up

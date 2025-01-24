@@ -44,9 +44,11 @@ Route::get('/callback', function (Request $request) {
         ])->get('http://box-wsl/api/user');
 
 
-        $user = $response->json();
+        $username = $response->json("name");
+        $email = $response->json("email");
         return Inertia::render('Callback', [
-            'props' => [$user]
+            "username" => $username,
+            "email" => $email,
         ]);
     } else {
         return $response->json();

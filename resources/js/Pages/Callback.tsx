@@ -1,15 +1,26 @@
 import { User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Button, MantineProvider, Title } from '@mantine/core';
+import { Text, Button, MantineProvider, Title, Card, Center } from '@mantine/core';
 
-export default function Callback({ props }: { props: object}) {
+interface PageProps {
+  username: string,
+  email: string
+}
+
+export default function Callback(props: PageProps) {
+  let { username, email } = props;
   return (
     <>
       <Head title="Callback" />
       <MantineProvider>
-        <Title> Legoom App</Title>
-        <br />
-        {JSON.stringify(props)}
+        <Center>
+          <Card>
+            <Title> Legoom App</Title>
+            <br />
+            <Text size="lg">{username}</Text>
+            <Text size="md">{email}</Text>
+          </Card>
+        </Center>
       </MantineProvider>
     </>
   );

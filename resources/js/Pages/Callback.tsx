@@ -1,14 +1,15 @@
 import { User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Text, Button, MantineProvider, Title, Card, Center } from '@mantine/core';
+import { Text, Avatar, Button, MantineProvider, Title, Card, Center } from '@mantine/core';
 
 interface PageProps {
   username: string,
   email: string
+  avatar: string
 }
 
 export default function Callback(props: PageProps) {
-  let { username, email } = props;
+  let { username, email, avatar } = props;
   return (
     <>
       <Head title="Callback" />
@@ -19,6 +20,7 @@ export default function Callback(props: PageProps) {
             <br />
             <Text size="lg">{username}</Text>
             <Text size="md">{email}</Text>
+            <Avatar src={avatar} />
           </Card>
         </Center>
       </MantineProvider>

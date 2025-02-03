@@ -38,17 +38,24 @@ Route::get('/callback', function (Request $request) {
         # Get user name
         $accessToken = $response->json("access_token");
 
-        $response = Http::withHeaders([
+        $user = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $accessToken,
         ])->get(env('LEGOOM_ID_URL') . '/api/user');
 
+        $profile = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->get(env('LEGOOM_ID_URL') . '/api/profile');
 
-        $username = $response->json("name");
-        $email = $response->json("email");
+
+        $username = $user->json("name");
+        $email = $user->json("email");
+        $avatar = $profile->json("avatar");
         return Inertia::render('Callback', [
             "username" => $username,
             "email" => $email,
+            "avatar" => $avatar,
         ]);
     } else {
         return $response->json();

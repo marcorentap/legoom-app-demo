@@ -17,7 +17,7 @@ Route::get('/redirect', function () {
         'client_id' => env('LEGOOM_CLIENT_ID'),
         'redirect_uri' => url('/callback'),
         'response_type' => 'code',
-        'scope' => 'write-personal-info read-membership-info',
+        'scope' => 'read-profile read-account',
         'prompt' => "consent"
     ]);
 
@@ -56,6 +56,8 @@ Route::get('/callback', function (Request $request) {
             "username" => $username,
             "email" => $email,
             "avatar" => $avatar,
+            "user" => $user->json(),
+            "profile" => $profile->json()
         ]);
     } else {
         return $response->json();

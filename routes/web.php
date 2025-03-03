@@ -17,7 +17,7 @@ Route::get('/redirect', function () {
         'client_id' => env('LEGOOM_CLIENT_ID'),
         'redirect_uri' => url('/callback'),
         'response_type' => 'code',
-        'scope' => 'read-profile read-account',
+        'scope' => 'read-account',
         'prompt' => "consent"
     ]);
 
@@ -34,6 +34,7 @@ Route::get('/callback', function (Request $request) {
         'code' => $request->code,
     ]);
 
+
     if ($response->status() == 200) {
         # Get user name
         $accessToken = $response->json("access_token");
@@ -43,22 +44,7 @@ Route::get('/callback', function (Request $request) {
             'Authorization' => 'Bearer ' . $accessToken,
         ])->get(env('LEGOOM_ID_URL') . '/api/user');
 
-        $profile = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $accessToken,
-        ])->get(env('LEGOOM_ID_URL') . '/api/profile');
-
-
-        $username = $user->json("name");
-        $email = $user->json("email");
-        $avatar = $profile->json("avatar");
-        return Inertia::render('Callback', [
-            "username" => $username,
-            "email" => $email,
-            "avatar" => $avatar,
-            "user" => $user->json(),
-            "profile" => $profile->json()
-        ]);
+        return Inertia::render('Callback', ['user' => $user->json()]);
     } else {
         return $response->json();
     }
